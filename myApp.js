@@ -1,6 +1,8 @@
 let express = require('express');
 let app = express();
 
+let bodyParser = require('body-parser');
+
 // console.log("Hello World");
 // console.log(process.env.MESSAGE_STYLE)
 
@@ -12,20 +14,28 @@ function logger(req, res, next) {
 
 //define routes
 app.use(logger);
+app.use(bodyParser.urlencoded({extended: false}));
 
 // middleware get time server
 app.get('/now', function(req, res, next) {
-    req.time = new Date().toString();
-    next();
-  }, function(req, res) {
-    res.json({ "time": req.time })
-  }
+  req.time = new Date().toString();
+  next();
+}, function(req, res) {
+  res.json({ "time": req.time })
+}
 );
 
 // echo server
 app.get('/:word/echo', function(req, res) {
-    const { word } = req.params
-    res.json({"echo": word})
+  const { word } = req.params
+  res.json({ "echo": word })
+}
+);
+  
+// name query server
+app.get('/name', function(req, res) {
+  const { first, last } = req.query
+  res.json({ "name": `${first} ${last}` })
   }
 );
 
