@@ -1,6 +1,5 @@
 let express = require('express');
 let app = express();
-
 let bodyParser = require('body-parser');
 
 // console.log("Hello World");
@@ -33,11 +32,20 @@ app.get('/:word/echo', function(req, res) {
 );
   
 // name query server
-app.get('/name', function(req, res) {
-  const { first, last } = req.query
-  res.json({ "name": `${first} ${last}` })
-  }
-);
+// app.get('/name', function(req, res) {
+//   const { first, last } = req.query
+//   res.json({ "name": `${first} ${last}` })
+//   }
+// );
+
+// send name
+app.post('/name', function(req, res) {
+
+  let firstName = req.body.first;
+  let lastName = req.body.last;
+
+  res.json({ "name": `${firstName} ${lastName}` })
+});
 
 // styles
 app.use('/public', express.static(__dirname + "/public"));
