@@ -22,6 +22,12 @@ app.get('/now', function(req, res, next) {
   }
 );
 
+// echo server
+app.get('/:word/echo', function(req, res) {
+    const { word } = req.params
+    res.json({"echo": word})
+  }
+);
 
 // styles
 app.use('/public', express.static(__dirname + "/public"));
